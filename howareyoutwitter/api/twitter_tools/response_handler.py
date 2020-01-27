@@ -5,9 +5,15 @@ from api.models import Tweet, Hashtag, TweetHashtag
 
 class ResponseHandler():
     def __init__(self, response):
-        self.tweets = response['results']
-        self.next = response['next']
-
+        try:
+            self.tweets = response['results']
+        except KeyError:
+            raise KeyError(f'Tried to get results but reponse looks like:\n{response}')
+        try:
+            self.next = response['next']
+        except KeyError:
+            self.next = 'null'
+        
     def parse_tweets(self):
         tweet_models = []
         for tweet in self.tweets:
@@ -42,11 +48,13 @@ class ResponseHandler():
         return date_time
 
     def get_text(self, tweet: dict):
-        truncated = tweet['truncated']
-        if truncated:
-            text = tweet['extended_tweet']['full_text']
-        else:
-            text = tweet['text']
+        # TODO: KeyError?
+        if 'truncated' in tweet:
+            truncated = tweet['truncated']
+            if truncated:
+                text = tweet['extended_tweet']['full_text']
+                return text
+        text = tweet['text']
         return text
 
         

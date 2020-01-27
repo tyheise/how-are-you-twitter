@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from api.models import Token
 from api.twitter_tools import api as twitter_tools_api
+from api.twitter_tools.tweet_seeker import TweetSeeker
 
 class AuthenticateView(APIView):
 
@@ -32,16 +33,8 @@ class SearchTweetsView(APIView):
         except IndexError:
             raise IndexError('No Authentication token')
 
-        api = twitter_tools_api.Api(token)
-        response = api.daily_search('#yeg')
+        t_s = TweetSeeker(token)
+        t_s.run('#yeg')
 
-
-        tweets = response['results']
-        for tweet in tweets:
-            user_id = tweet['user']['id']
-            truncated = tweet['truncated']
-
-            
-
-        return Response(response)
+        return Response('success!')
 

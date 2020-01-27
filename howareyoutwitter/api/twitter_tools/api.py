@@ -28,20 +28,22 @@ class Api:
     def get_yesterday_to_and_from(self):
         yesterday = date.today() - timedelta(1)
         today = date.today()
-        return self.convert_date_to_data(yesterday), self.convert_date_to_data(today)
+        return yesterday, today
 
-    def convert_date_to_data(self, date):
+    def convert_date_to_data(self, date: date):
         string_date = datetime.strftime(date, '%Y%m%d')
         return f"{string_date}0000"
 
-    def daily_search(self, hashtag):
+    def daily_search(self, hashtag: str, nextToken=None):
         fromDate, toDate = self.get_yesterday_to_and_from()
-        data = {'query': hashtag, 'fromDate': fromDate, 'toDate': toDate}
-        response = self.search(data)
+        response = self.date_search(hashtag, fromDate, toDate, nextToken)
         return response
 
-    def date_search(self, hashtag, fromDate, toDate):
+    def date_search(self, hashtag: str, fromDate: date, toDate: date, nextToken=None):
         fromDate = self.convert_date_to_data(fromDate)
         toDate = self.convert_date_to_data(toDate)
-        data = {'query': hashtag, 'fromDate': fromDate, 'toDate': toDate}
+        data = {'query': hashtag, 'fromDate': fromDate, 'toDate': toDate, 'maxResults': 100}
+        if nextToken is not None:
+            data['next'] = nextToken
         response = self.search(data)
+        return response

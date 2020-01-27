@@ -9,7 +9,7 @@ class Tweet(models.Model):
     user_id = models.CharField(max_length=300)
     tweet_id = models.CharField(max_length=300)
     creation_date = models.DateTimeField()
-    text = models.CharField(max_length=300)
+    text = models.CharField(max_length=600)
 
 class Hashtag(models.Model):
     text = models.CharField(max_length=300, unique=True)

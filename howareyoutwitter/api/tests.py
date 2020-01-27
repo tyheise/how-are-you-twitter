@@ -11,5 +11,6 @@ class ResponseHandlerTests(TestCase):
         with open('test_response.json') as json_file:
             data = json.load(json_file)
             handler = ResponseHandler(data)
-            handler.parse_tweets()
+            tweets = handler.parse_tweets()
+            self.assertTrue(len(tweets) > 1)
 
