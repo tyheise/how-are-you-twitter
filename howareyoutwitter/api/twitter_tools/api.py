@@ -1,6 +1,7 @@
 import requests
 import json
-from datetime import date, timedelta, datetime
+from datetime import date, timedelta, datetime, time
+import dateutil.tz
 
 
 class Api:
@@ -30,20 +31,36 @@ class Api:
         today = date.today()
         return yesterday, today
 
-    def convert_date_to_data(self, date: date):
-        string_date = datetime.strftime(date, '%Y%m%d')
-        return f"{string_date}0000"
+    def convert_date_to_data(self, datetime_obj: datetime):
+        string_date = datetime.strftime(datetime_obj, '%Y%m%d%H%M')
+        return string_date
 
-    def daily_search(self, hashtag: str, nextToken=None):
-        fromDate, toDate = self.get_yesterday_to_and_from()
-        response = self.date_search(hashtag, fromDate, toDate, nextToken)
-        return response
-
-    def date_search(self, hashtag: str, fromDate: date, toDate: date, nextToken=None):
-        fromDate = self.convert_date_to_data(fromDate)
-        toDate = self.convert_date_to_data(toDate)
-        data = {'query': hashtag, 'fromDate': fromDate, 'toDate': toDate, 'maxResults': 100}
-        if nextToken is not None:
-            data['next'] = nextToken
+    def date_search(self, hashtag: str, from_date: str, to_date: str, next_token=None):
+        data = {'query': hashtag, 'fromDate': from_date, 'toDate': to_date, 'maxResults': 100}
+        if next_token is not None:
+            data['next'] = next_token
         response = self.search(data)
         return response
+
+    def get_date_time(self, hour: int):
+        date_time = datetime.now(dateutil.tz.gettz('America/Edmonton'))
+        if hour < 24:
+            date_time = date_time - timedelta(1)
+        else:
+            hour = hour - 24
+        return date_time.replace(hour=hour, minute=0, second=0, microsecond=0).astimezone(dateutil.tz.tzutc())
+
+    def daily_search(self, hashtag):
+        hour_to_response = {}
+        for start_hour in range(0, 24, 3):
+            end_hour = start_hour + 3
+            start_hour = start_hour
+
+            start_time = self.convert_date_to_data(self.get_date_time(start_hour))
+            end_time = self.convert_date_to_data(self.get_date_time(end_hour))
+
+            response = self.date_search(hashtag, start_time, end_time)
+            hour_to_response[start_hour] = response
+        return hour_to_response
+
+

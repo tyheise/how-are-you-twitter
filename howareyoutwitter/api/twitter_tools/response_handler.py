@@ -8,7 +8,7 @@ class ResponseHandler():
         try:
             self.tweets = response['results']
         except KeyError:
-            raise KeyError(f'Tried to get results but reponse looks like:\n{response}')
+            raise KeyError(f'Tried to get results but response looks like:\n{response}')
         try:
             self.next = response['next']
         except KeyError:
@@ -56,5 +56,3 @@ class ResponseHandler():
                 return text
         text = tweet['text']
         return text
-
-        

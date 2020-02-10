@@ -19,7 +19,8 @@ class AuthenticateView(APIView):
         token.save()
         return Response(credentials)
 
-        
+# 25000 tweets a month. 800 tweets a day. 33 tweets an hour.
+# 250 requests a month. 8 requests a day. 0.33 requests an hour.
 class SearchTweetsView(APIView):
 
     def get(self, request):
