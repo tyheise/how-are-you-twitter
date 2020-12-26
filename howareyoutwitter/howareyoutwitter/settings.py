@@ -25,7 +25,7 @@ SECRET_KEY = '2ts8d9e^7it)vwji^tz=lfhx8=7taq%)o#nqog@ufod7xz2#50'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
 
 
 # Application definition
@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': os.environ['POSTGRES_DB'],
         'USER': os.environ['POSTGRES_USER'],
         'PASSWORD': os.environ['POSTGRES_PASSWORD'],
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': os.environ['POSTGRES_PORT'],
     }
 }
