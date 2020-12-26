@@ -63,3 +63,4 @@ typings/
 venv/
 .vscode/
 __pycache__/
+twitter-venv/
