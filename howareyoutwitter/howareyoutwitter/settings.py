@@ -25,7 +25,7 @@ SECRET_KEY = '2ts8d9e^7it)vwji^tz=lfhx8=7taq%)o#nqog@ufod7xz2#50'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0', 'localhost', 'howareyou.space', '64.225.7.17']
 
 
 # Application definition
@@ -75,7 +75,7 @@ WSGI_APPLICATION = 'howareyoutwitter.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ['POSTGRES_DB'],
         'USER': os.environ['POSTGRES_USER'],
         'PASSWORD': os.environ['POSTGRES_PASSWORD'],
@@ -122,3 +122,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
