@@ -1,2 +1,7 @@
 django
 psycopg2-binary
+requests
+djangorestframework
+python-twitter
+python-dateutil
+django-q
