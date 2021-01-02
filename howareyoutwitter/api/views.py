@@ -11,6 +11,9 @@ from api.models import Token
 from api.twitter_tools import api as twitter_tools_api
 from api.twitter_tools.tweet_seeker import TweetSeeker
 
+# TODO: These views don't really make sense. The logic these handle should be
+# in some background process.
+
 class AuthenticateView(APIView):
 
     def get(self, request):
@@ -38,4 +41,3 @@ class SearchTweetsView(APIView):
         t_s.run('#yeg')
 
         return Response('success!')
-

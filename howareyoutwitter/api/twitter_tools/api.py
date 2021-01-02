@@ -4,6 +4,8 @@ from datetime import date, timedelta, datetime, time
 import dateutil.tz
 
 
+# FIXME: No comments or automated tests here.
+# FIXME: This name is not meaningful
 class Api:
     def __init__(self, token):
         self.session = self.get_session(token)
@@ -43,6 +45,7 @@ class Api:
         return response
 
     def get_date_time(self, hour: int):
+        # TODO: this tz should be configurable instead of hardcoded.
         date_time = datetime.now(dateutil.tz.gettz('America/Edmonton'))
         if hour < 24:
             date_time = date_time - timedelta(1)
