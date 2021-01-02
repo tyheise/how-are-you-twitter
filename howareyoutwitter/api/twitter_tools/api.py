@@ -62,5 +62,3 @@ class Api:
             response = self.date_search(hashtag, start_time, end_time)
             hour_to_response[start_hour] = response
         return hour_to_response
-
-

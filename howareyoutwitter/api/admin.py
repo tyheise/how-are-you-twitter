@@ -9,10 +9,6 @@ class TokenAdmin(admin.ModelAdmin):
 class TweetAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(models.TweetHashtag)
-class TweetHashtagAdmin(admin.ModelAdmin):
-    pass
-
 @admin.register(models.Hashtag)
 class HashtagAdmin(admin.ModelAdmin):
     pass
