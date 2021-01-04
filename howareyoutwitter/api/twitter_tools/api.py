@@ -1,13 +1,21 @@
 import requests
 import json
+import os
+import twitter
 from datetime import date, timedelta, datetime, time
+from api import models
 import dateutil.tz
 
 
 # FIXME: No comments or automated tests here.
 # FIXME: This name is not meaningful
 class Api:
-    def __init__(self, token):
+    def __init__(self, token=None):
+        # Just go get the token if its None
+        if token is None:
+            credentials = twitter.Api().GetAppOnlyAuthToken(os.environ['CONSUMER_KEY'], os.environ['CONSUMER_SECRET'])
+            token = models.Token(token_type=credentials['token_type'], access_token=credentials['access_token'])
+            token.save()
         self.session = self.get_session(token)
 
     def get_session(self, token):

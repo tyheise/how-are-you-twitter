@@ -22,4 +22,3 @@ class TweetSeeker:
             handler.parse_tweets()
 
         return 0
-
