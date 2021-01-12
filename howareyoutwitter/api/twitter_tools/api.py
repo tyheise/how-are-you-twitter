@@ -57,6 +57,8 @@ class Api:
         date_time = datetime.now(dateutil.tz.gettz('America/Vancouver'))
         if hour < 24:
             date_time = date_time - timedelta(1)
+        else:
+            hour = hour - 24
         return date_time.replace(hour=hour, minute=0, second=0, microsecond=0).astimezone(dateutil.tz.tzutc())
 
     def daily_search(self, hashtag):
